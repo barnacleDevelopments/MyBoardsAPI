@@ -9,6 +9,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 // Register DB Context
 string myBoardsConnectionString = builder.Configuration.GetConnectionString("POSTGRES_MYBOARDS");
 
@@ -50,10 +52,22 @@ builder.Services.AddAuthentication(options =>
 // Add Controllers
 builder.Services.AddControllers();
 
+// Configure MVC Views
+builder.Services.AddControllersWithViews();
+
 // Add Image Service
 builder.Services.AddScoped<ImageService>();
 
 var app = builder.Build();
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+);
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
