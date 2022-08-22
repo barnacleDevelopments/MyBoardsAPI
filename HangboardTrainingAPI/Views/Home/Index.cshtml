@@ -1,0 +1,20 @@
+@model MyBoardsAPI.Models.ViewModels.IndexView;
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<div class="stats-container">
+    <div>
+        @Model.HangboardCount
+    </div>
+    <div>
+        @Model.WorkoutCount
+    </div>
+    <div>
+        @Model.HoldCOunt
+    </div>
+</div>
+
+
