@@ -1,0 +1,45 @@
+body {
+    font-family: 'Barlow', sans-serif;
+
+}
+
+h1 {
+    font-family: 'Rubik Dirt', cursive;
+    font-size: 5rem;
+    margin-bottom: 1.3rem;
+    line-height: 6.5rem;
+}
+
+h2 {
+    font-size: 4rem;
+    line-height: 7rem;
+    
+}
+
+p {
+    margin-bottom: 1.3rem;
+    line-height: 1.5rem;
+}
+
+
+.container {
+    padding: 20px 20px
+}
+
+
+footer {
+    width: 100%;
+    padding: 20px;
+    background-color: grey;
+}
+
+footer nav ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+

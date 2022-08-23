@@ -2,10 +2,30 @@
 <html>
 <head>
     <title>@ViewData["Title"]</title>
+    @* FONTS *@
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow&family=Rubik+Dirt&display=swap" rel="stylesheet">
+   
+    <link rel="stylesheet" href="~/css/reset.css"/> 
+    <link rel="stylesheet" href="~/css/global.css"/> 
 </head>
+
 <body>
 
-@RenderBody()
+<div class="container">
+    @RenderBody()  
+</div>
+
+<footer>
+    <nav>
+        <ul>
+            <li><a href="/Home/PrivacyPolicy">Privacy Policy</a></li>
+            <li><a href="/Home/EULA">EULA</a></li>
+        </ul>
+    </nav>
+</footer>
 
 </body>
+
 </html>
