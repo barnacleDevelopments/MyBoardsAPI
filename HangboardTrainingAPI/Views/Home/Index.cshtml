@@ -1,3 +1,4 @@
+@using MyBoardsAPI.Components
 @model MyBoardsAPI.Models.ViewModels.IndexView;
 
 @{
@@ -5,16 +6,46 @@
     Layout = "_Layout";
 }
 
-<div class="stats-container">
+@section Header {
+    <link rel="stylesheet" href="~/css/index.css"/>
+}
+
+<div class="hero-container">
     <div>
-        @Model.HangboardCount
+        <h1>MYBOARDS:</h1>
+        <p>Advanced hangboard training application for climbers. </p>
     </div>
-    <div>
-        @Model.WorkoutCount
-    </div>
-    <div>
-        @Model.HoldCOunt
+    <div class="hero-btn-container">
+        <a href="/Contact" class="btn-hero">DOWNLOAD NOW</a>
     </div>
 </div>
 
+<div class="container">
+    <div>
+        <h2>Features</h2>
+        @(await Html.RenderComponentAsync<FeaturesList>(
+            RenderMode.Server,
+            new
+            {
+                Model.UpcomingFeatures,
+                Model.CurrentFeatures
+            }))
 
+        <a href="/Home/Roadmap">View Roadmap and request features</a>
+    </div>
+    
+    <div class="stats">
+        <div>
+            <strong>Total Boards Created</strong>
+            <span>@Model.HangboardCount</span>
+        </div>
+        <div>
+            <strong>Total Workouts Created</strong>
+            <span>@Model.WorkoutCount</span>
+        </div>
+        <div>
+            <strong>Total Hold Pins Placed</strong>
+            <span>@Model.HoldCount</span>
+        </div>
+    </div>
+</div>

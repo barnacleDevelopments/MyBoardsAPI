@@ -9,8 +9,6 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 // Register DB Context
 string myBoardsConnectionString = builder.Configuration.GetConnectionString("POSTGRES_MYBOARDS");
 
@@ -49,6 +47,9 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Configure Serverside Blazor
+builder.Services.AddServerSideBlazor();
+
 // Add Controllers
 builder.Services.AddControllers();
 
@@ -64,10 +65,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"
-);
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapBlazorHub();
+});
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 

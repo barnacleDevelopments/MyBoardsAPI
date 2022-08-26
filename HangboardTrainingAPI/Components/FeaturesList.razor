@@ -1,0 +1,46 @@
+@using HangboardTrainingAPI.Models
+<div >
+    <button @onclick="ToggleFeatures">Current Features</button>
+    <button>Upcoming Features</button>
+</div>
+
+<ul>
+    @if (_isCurrentFeatures)
+    {
+        @foreach (var feature in CurrentFeatures)
+        {
+            <li class="card">
+                <h3>@feature.Name</h3>
+                <p>@feature.Description</p>
+            </li>
+        }
+    }
+    else
+    {
+        @foreach (var feature in UpcomingFeatures)
+        {
+            <li class="card">
+                <h3>@feature.Name</h3>
+                <p>@feature.Description</p>
+            </li>
+        }
+    }
+    <h1>@_isCurrentFeatures</h1>
+</ul>
+
+@code {
+
+    [Parameter]
+    public List<Feature> UpcomingFeatures { get; set; } = new();
+
+    [Parameter]
+    public List<Feature> CurrentFeatures { get; set; } = new();
+
+    bool _isCurrentFeatures = true;
+
+    private void ToggleFeatures()
+    {
+        _isCurrentFeatures = false;
+    }
+
+}
