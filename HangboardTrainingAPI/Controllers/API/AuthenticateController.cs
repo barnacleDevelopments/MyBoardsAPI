@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MyBoardsAPI.Controllers
 {
@@ -89,11 +90,29 @@ namespace MyBoardsAPI.Controllers
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.Username
             };
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
-            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+            var result = await _userManager.CreateAsync(user, model.Password);
+            
+            if (!result.Succeeded)
+            { 
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { 
+                    Status = "Error", 
+                    Message = "User creation failed! Please check user details and try again." 
+                });
+            }
+
+            var confirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var confirmationLink = Url.Action("ConfirmEmail", "Account", new
+            {
+                confirmationToken, 
+                email = user.Email
+            }, Request.Scheme);
+            
+            return Ok(new Response
+            {
+                Status = "Success", 
+                Message = "User created successfully!"
+            });
         }
 
         [HttpPost]
