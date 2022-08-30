@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using MyBoardsAPI.Services;
 
 namespace MyBoardsAPI.Controllers
 {
@@ -18,15 +19,18 @@ namespace MyBoardsAPI.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
+        private readonly MailService _mail;
 
         public AuthenticateController(
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            MailService mail)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
+            _mail = mail;
         }
 
         [HttpPost]
@@ -34,6 +38,19 @@ namespace MyBoardsAPI.Controllers
         public async Task<IActionResult> Login([FromBody] Login model)
         {
             var user = await _userManager.FindByNameAsync(model.Username);
+            
+            // check for email confirmation
+            var emailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
+
+            if (emailConfirmed)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response
+                {
+                    Status = "Error", 
+                    Message = "Please visit your email to confirm your email address before logging in."
+                });
+            }
+            
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
@@ -77,12 +94,20 @@ namespace MyBoardsAPI.Controllers
             var userExists = await _userManager.FindByNameAsync(model.Username);
           
             if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response
+                {
+                    Status = "Error", 
+                    Message = "User already exists!"
+                });
             
             userExists = await _userManager.FindByEmailAsync(model.Email);
             
             if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User with this email already exists!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response
+                {
+                    Status = "Error", 
+                    Message = "User with this email already exists!"
+                });
             
             ApplicationUser user = new()
             {
@@ -104,9 +129,31 @@ namespace MyBoardsAPI.Controllers
             var confirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             var confirmationLink = Url.Action("ConfirmEmail", "Account", new
             {
-                confirmationToken, 
+                token = confirmationToken, 
                 email = user.Email
             }, Request.Scheme);
+
+            try
+            {
+                await _mail.SendMail(
+                    user.Email, 
+                    "MyBoards - Email Confirmation", 
+                    $"<p>Thank you for accepting my invitation to the MyBoards App Alpha testing.</p> " +
+                    $"Please click the <a href='${confirmationLink}'>confirmation link</a> to confirm your email. After that " +
+                    $"you are free to login to the app and test things out!" +
+                    $"<p>If you have the time please visit the google play store and leave some feedback. It will " +
+                    $"be used to further develop the platform to better suit climbers needs.</p>" +
+                    $"{confirmationLink}");
+            }
+            catch
+            {
+                await _userManager.DeleteAsync(user);
+                
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { 
+                    Status = "Error", 
+                    Message = "There was an error sending confirmation email. Please try signing up again." 
+                });
+            }
             
             return Ok(new Response
             {
