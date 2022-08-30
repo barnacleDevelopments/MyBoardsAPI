@@ -2,7 +2,7 @@
     background-color: #FFFFFF;
     display: flex;
     flex-direction: column;
-    padding: 53px 43px;
+    padding: 53px 12px;
     color: black;
     font-weight: bold;
     text-align: center;
@@ -21,11 +21,9 @@
 .hero-container h1 {
     margin-bottom: 0px;
     line-height: 60px;
-    font-size: 2.8rem;
 }
 
 .hero-container p {
-    font-size: 1.3rem;
     line-height: 25px;
 }
 
@@ -40,7 +38,7 @@
     border: none;
     padding: 15px 18px;
     font-weight: bold;
-    font-size: 1.3rem;
+    font-size: 1rem;
     text-decoration: none;
     color: black;
 }
