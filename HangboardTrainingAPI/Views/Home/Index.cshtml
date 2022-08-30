@@ -21,31 +21,28 @@
 </div>
 
 <div class="container">
-    <div>
-        <h2>Features</h2>
-        @(await Html.RenderComponentAsync<FeaturesList>(
-            RenderMode.Server,
-            new
-            {
-                Model.UpcomingFeatures,
-                Model.CurrentFeatures
-            }))
+    <h2 class="header">Features</h2>
+    @(await Html.RenderComponentAsync<FeaturesList>(
+        RenderMode.ServerPrerendered,
+        new
+        {
+            Model.UpcomingFeatures,
+            Model.CurrentFeatures
+        }))
+    <a href="/Home/Roadmap">View Roadmap and request features</a>
+</div>
 
-        <a href="/Home/Roadmap">View Roadmap and request features</a>
+<div class="stats-list">
+    <div class="stat">
+        <strong>Total Boards Created</strong>
+        <span>@Model.HangboardCount</span>
     </div>
-    
-    <div class="stats">
-        <div>
-            <strong>Total Boards Created</strong>
-            <span>@Model.HangboardCount</span>
-        </div>
-        <div>
-            <strong>Total Workouts Created</strong>
-            <span>@Model.WorkoutCount</span>
-        </div>
-        <div>
-            <strong>Total Hold Pins Placed</strong>
-            <span>@Model.HoldCount</span>
-        </div>
+    <div class="stat">
+        <strong>Total Workouts Created</strong>
+        <span>@Model.WorkoutCount</span>
+    </div>
+    <div class="stat">
+        <strong>Total Hold Pins Placed</strong>
+        <span>@Model.HoldCount</span>
     </div>
 </div>

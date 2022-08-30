@@ -1,32 +1,77 @@
 @using HangboardTrainingAPI.Models
-<div >
-    <button @onclick="ToggleFeatures">Current Features</button>
-    <button>Upcoming Features</button>
+@using Microsoft.AspNetCore.Components.Web
+
+<style>
+    .feature-btn {
+        border: none;
+        padding: 0px;
+        width: 100%;
+        display: flex;
+        max-width: 450px;
+        color: white;
+        font-weight: 800;
+        margin-bottom: 30px;
+        background-color: transparent;
+    }
+    
+    .feature-btn span:nth-of-type(1) {
+        border-bottom-left-radius: 4px;
+        border-top-left-radius: 4px;
+    }
+       
+    .feature-btn span:nth-of-type(2) {
+        border-bottom-right-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+    
+    .feature-btn span {
+        background: var(--primary-btn-color);
+        width: 50%;
+        padding: 10px;
+    }
+    
+    .feature-btn span.active {
+        background-color: grey;
+    }
+    
+    .features-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+</style>
+
+<div class="features-list">
+    <button class="feature-btn" @onclick="ToggleFeatures">
+        <span class="@((!_isCurrentFeatures ? "active" : ""))">CURRENT</span>
+        <span class="@((_isCurrentFeatures ? "active" : ""))">ROADMAP</span>
+    </button>
+
+    <ul>
+        @if (_isCurrentFeatures)
+        {
+            @foreach (var feature in CurrentFeatures)
+            {
+                <li class="card">
+                    <h3>@feature.Name</h3>
+                    <p>@feature.Description</p>
+                </li>
+            }
+        }
+        else
+        {
+            @foreach (var feature in UpcomingFeatures)
+            {
+                <li class="card">
+                    <h3>@feature.Name</h3>
+                    <p>@feature.Description</p>
+                </li>
+            }
+        }
+    </ul>
 </div>
 
-<ul>
-    @if (_isCurrentFeatures)
-    {
-        @foreach (var feature in CurrentFeatures)
-        {
-            <li class="card">
-                <h3>@feature.Name</h3>
-                <p>@feature.Description</p>
-            </li>
-        }
-    }
-    else
-    {
-        @foreach (var feature in UpcomingFeatures)
-        {
-            <li class="card">
-                <h3>@feature.Name</h3>
-                <p>@feature.Description</p>
-            </li>
-        }
-    }
-    <h1>@_isCurrentFeatures</h1>
-</ul>
 
 @code {
 
@@ -40,7 +85,7 @@
 
     private void ToggleFeatures()
     {
-        _isCurrentFeatures = false;
+        _isCurrentFeatures = !_isCurrentFeatures;
     }
 
 }
