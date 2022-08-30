@@ -5,8 +5,6 @@ namespace HangboardTrainingAPI.Services
 {
     public class ImageService
     {
-
-
         private readonly IConfiguration _config;
         private readonly ILogger _logger;
 

@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using MyBoardsAPI.Data;
 using MyBoardsAPI.Models.Auth;
 using System.Text;
+using MyBoardsAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,8 +57,9 @@ builder.Services.AddControllers();
 // Configure MVC Views
 builder.Services.AddControllersWithViews();
 
-// Add Image Service
+// Add Services
 builder.Services.AddScoped<ImageService>();
+builder.Services.AddScoped<MailService>();
 
 var app = builder.Build();
 
