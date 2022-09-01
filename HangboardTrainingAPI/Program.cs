@@ -67,6 +67,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
@@ -75,8 +78,7 @@ app.UseEndpoints(endpoints =>
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-app.UseAuthentication();
-app.UseAuthorization();
+
 
 // Configure the HTTP request pipeline.
 app.UseHttpsRedirection(); // enable for production

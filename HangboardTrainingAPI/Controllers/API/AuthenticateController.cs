@@ -42,7 +42,7 @@ namespace MyBoardsAPI.Controllers
             // check for email confirmation
             var emailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
 
-            if (emailConfirmed)
+            if (!emailConfirmed)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response
                 {
