@@ -1,0 +1,26 @@
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.Extensions.Logging
+@using Microsoft.Identity.Client
+@using MyBoardsAPI.Models
+
+<EditForm Model="@Email" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText id="subject" @bind-Value="Email.Subject" />
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+    private Email Email = new Email();
+
+    private void HandleValidSubmit()
+    {
+        
+    
+    // Process the valid form
+    }
+    
+}
