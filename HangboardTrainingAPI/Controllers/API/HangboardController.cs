@@ -97,9 +97,9 @@ namespace HangboardTrainingAPI.Controllers
             #region
             try
             {
-                string userId = _userManager.GetUserId(User);
+                var user = await _userManager.GetUserAsync(User);
 
-                if (String.IsNullOrEmpty(userId))
+                if (user == null)
                 {
                     return Unauthorized();
                 }
@@ -113,11 +113,17 @@ namespace HangboardTrainingAPI.Controllers
                 }
 
                 // Create hangboard
-                hangboard.UserId = userId;
+                hangboard.UserId = user.Id;
 
                 await _db.Hangboards.AddAsync(hangboard);
 
                 await _db.SaveChangesAsync();
+
+                if (!user.HasCreatedFirstHangboard)
+                {
+                    user.HasCreatedFirstHangboard = true;
+                    await _userManager.UpdateAsync(user);
+                }
 
                 hangboard.ImageURL = await GetImageURIFromRequest(hangboard.Id);
 

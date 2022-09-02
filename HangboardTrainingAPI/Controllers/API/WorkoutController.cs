@@ -127,9 +127,9 @@ namespace HangboardTrainingAPI.Controllers
             #region
             try
             {
-                string userId = _userManager.GetUserId(User);
+                var user = await _userManager.GetUserAsync(User);
 
-                if (String.IsNullOrEmpty(userId))
+                if (user == null)
                 {
                     return Unauthorized();
                 }
@@ -140,11 +140,17 @@ namespace HangboardTrainingAPI.Controllers
                     set.SetHolds = RemoveSetHoldNavigationProperties(set.SetHolds);
                 }
 
-                workout.UserId = userId;
+                workout.UserId = user.Id;
 
                 await _db.Workouts.AddAsync(workout);
 
                 await _db.SaveChangesAsync();
+                
+                if (!user.HasCreatedFirstWorkout)
+                {
+                    user.HasCreatedFirstWorkout = true;
+                    await _userManager.UpdateAsync(user);
+                }
 
                 workout.Hangboard = await _db.Hangboards
                         .Include(w => w.Holds)

@@ -7,7 +7,7 @@ namespace MyBoardsAPI.Models.Auth
         public string? RefreshToken { get; set; }
         public DateTime RefreshTokenExpiryTime { get; set; }
 
-        public bool hasCreatedFirstWorkout { get; set; } = false;
-        public bool hasCreatedFirstHangboard { get; set; } = false;
+        public bool HasCreatedFirstWorkout { get; set; } = false;
+        public bool HasCreatedFirstHangboard { get; set; } = false;
     }
 }

@@ -439,6 +439,12 @@ namespace MyBoardsAPI.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<bool>("HasCreatedFirstHangboard")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("HasCreatedFirstWorkout")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
 
@@ -477,12 +483,6 @@ namespace MyBoardsAPI.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
-
-                    b.Property<bool>("hasCreatedFirstHangboard")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("hasCreatedFirstWorkout")
-                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
