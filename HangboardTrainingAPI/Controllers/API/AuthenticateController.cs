@@ -39,20 +39,20 @@ namespace MyBoardsAPI.Controllers
         {
             var user = await _userManager.FindByNameAsync(model.Username);
             
-            // check for email confirmation
-            var emailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
-
-            if (!emailConfirmed)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response
-                {
-                    Status = "Error", 
-                    Message = "Please visit your email to confirm your email address before logging in."
-                });
-            }
-            
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
+                // check for email confirmation
+                var emailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
+
+                if (!emailConfirmed)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, new Response
+                    {
+                        Status = "Error", 
+                        Message = "Please visit your email to confirm your email address before logging in."
+                    });
+                }
+                
                 var userRoles = await _userManager.GetRolesAsync(user);
 
                 var authClaims = new List<Claim>
