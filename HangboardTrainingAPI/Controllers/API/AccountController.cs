@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyBoardsAPI.Models.Auth;
 
-namespace MyBoardsAPI.Controllers.API;
+namespace HangboardTrainingAPI.Controllers.API;
 
 [Authorize]
 [Route("api/[controller]")]
@@ -17,9 +17,16 @@ public class AccountController : Controller
         _userManager = userManager;
     } 
 
-    [HttpGet]
+    [HttpGet("user-info")]
     public async Task<IActionResult> GetCurrentAsync()
     {
-        return Ok(await _userManager.GetUserAsync(User));
+        var user = await _userManager.GetUserAsync(User);
+        
+        return Ok(new
+        {
+            user.HasCreatedFirstHangboard,
+            user.HasCreatedFirstWorkout,
+            user.UserName
+        });
     }
 }

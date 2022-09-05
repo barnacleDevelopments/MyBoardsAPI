@@ -31,11 +31,9 @@ p {
     line-height: 22px;
 }
 
-
 .container {
-    padding: 20px 20px
+    padding: 38px 20px
 }
-
 
 footer {
     width: 100%;
@@ -56,5 +54,29 @@ footer nav ul {
 footer nav ul li a {
     color: white;
     text-decoration: none;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+   .container {
+       padding: 38px 40px
+   }
+
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+
 }
 
