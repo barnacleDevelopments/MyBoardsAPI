@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="~/css/index.css"/>
 }
 
-<div class="hero-container">
+<section class="hero-container">
     <div>
         <h1>MYBOARDS:</h1>
         <p>Advanced hangboard training application for climbers. </p>
@@ -18,9 +18,9 @@
     <div class="hero-btn-container">
         <a href="/Contact" class="btn-hero">DOWNLOAD NOW</a>
     </div>
-</div>
+</section>
 
-<div class="container">
+<section class="container features">
     <h2 class="header">Features</h2>
     @(await Html.RenderComponentAsync<FeaturesList>(
         RenderMode.ServerPrerendered,
@@ -29,20 +29,21 @@
             Model.UpcomingFeatures,
             Model.CurrentFeatures
         }))
-    <a href="/Home/Roadmap">View Roadmap and request features</a>
-</div>
+</section>
 
-<div class="stats-list">
-    <div class="stat">
-        <strong>Total Boards Created</strong>
-        <span>@Model.HangboardCount</span>
-    </div>
-    <div class="stat">
-        <strong>Total Workouts Created</strong>
-        <span>@Model.WorkoutCount</span>
-    </div>
-    <div class="stat">
-        <strong>Total Hold Pins Placed</strong>
-        <span>@Model.HoldCount</span>
-    </div>
-</div>
+<section class="container stats">
+    <ul class="stats-list">
+        <li class="stat">
+            <strong>Total Boards Created</strong>
+            <span>@Model.HangboardCount</span>
+        </li>
+        <li class="stat">
+            <strong>Total Workouts Created</strong>
+            <span>@Model.WorkoutCount</span>
+        </li>
+        <li class="stat">
+            <strong>Total Hold Pins Placed</strong>
+            <span>@Model.HoldCount</span>
+        </li>
+    </ul>
+</section>
