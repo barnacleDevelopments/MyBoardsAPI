@@ -8,14 +8,14 @@
     text-align: center;
     gap: 20px;
     background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: contain;
-    height: 333px;
+    background-position: top;
+    background-size: cover;
+    height: 400px;
     background-image:
-            linear-gradient(180deg,#fff, #fff, #fff,  #fff,  #fff,  #fff, hsla(0,0%,100%,.55),
+            linear-gradient(180deg, #fff,  #fff,  #fff,  #fff, hsla(0,0%,100%,.55),
             hsla(0,0%,100%,0),
             hsla(0,0%,100%,0)),
-            url(/images/board_hang.jpg);
+            url(/images/board_1.jpg);
 }
 
 .hero-container h1 {
@@ -55,10 +55,59 @@
     text-align: center;
 }
 
+.feature-btn {
+    border: none;
+    padding: 0px;
+    width: 100%;
+    display: flex;
+    max-width: 450px;
+    color: white;
+    font-weight: 800;
+    margin-bottom: 30px;
+    background-color: transparent;
+}
+
+.feature-btn span:nth-of-type(1) {
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+.feature-btn span:nth-of-type(2) {
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.feature-btn span {
+    background: var(--primary-btn-color);
+    width: 50%;
+    padding: 10px;
+}
+
+.feature-btn span.active {
+    background-color: grey;
+}
+
+.features-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+section.stats {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/board_3.jpg");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: cover;
+}
+
 .stats-list {
-    background-color: white;
-    color: black;
+    color: white;
     padding: 30px 0px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+    width: 100%;
 }
 
 .stat {
@@ -73,4 +122,30 @@
 
 .stat strong {
     font-size: 1.3em;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .stats-list {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+    
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    
 }
