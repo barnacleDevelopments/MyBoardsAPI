@@ -6,9 +6,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,200;1,300;1,400;1,500&display=swap" rel="stylesheet">
-   
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="stylesheet" href="~/css/reset.css"/>
     <link rel="stylesheet" href="~/css/global.css"/>
 
@@ -16,9 +16,19 @@
 </head>
 
 <body>
-
-@RenderBody()
-
+<nav class="navbar">
+    <ul>
+        <li>
+            <a href="/">Home</a>
+        </li>
+        <li>
+            <a href="/Home/Contact">Contact</a>
+        </li>
+    </ul>
+</nav>
+<div class="site-wrapper">
+    @RenderBody()
+</div>
 <footer>
     <nav>
         <ul>
@@ -39,8 +49,9 @@
 </footer>
 
 @* TODO: Change this for production *@
+<base href="~/"/>
 <script src="_framework/blazor.server.js" autostart="false"></script>
-  <script>
+<script>
         (function start() {
             Blazor.start({
                 logLevel: 1, // LogLevel.Debug

@@ -1,8 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace MyBoardsAPI.Models;
 
 public class Email
 {
-    public string Subject { get; set; }
-    public string Message { get; set; }
-    
+    [Required]
+    public string Subject { get; set; } = String.Empty;
+    [Required]
+    public string Message { get; set; } = String.Empty;
+
 }

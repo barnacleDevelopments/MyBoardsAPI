@@ -10,5 +10,6 @@
 }
 
 <div class="container">
-   
+   @(await Html.RenderComponentAsync<ContactForm>(
+           RenderMode.ServerPrerendered))
 </div>
