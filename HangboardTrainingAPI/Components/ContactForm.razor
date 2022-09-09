@@ -1,26 +1,84 @@
-@using Microsoft.AspNetCore.Components
-@using Microsoft.AspNetCore.Components.Web
-@using Microsoft.Extensions.Logging
-@using Microsoft.Identity.Client
 @using MyBoardsAPI.Models
+@inject NavigationManager Navigator
 
-<EditForm Model="@Email" OnValidSubmit="@HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+@if (!isSubmited)
+{
+    <div id="contact-form">
+        <div class="contact-info">
+            <h1>Contact Form</h1>
+            <p>I'd love to get to know the climber in you!</p>
+            <h2>Feature Requests</h2>
+            <p>
+                MyBoards aims to be your esential companion for hangboard training.
+                Feature requests are welcome to help evolve the platform.
+            </p>
+            <h2>Partnerships</h2>
+            <p>
+                Currently, MyBoards is being developed by myself. If you love the platform
+                and want to get involved, please reach out!
+            </p>
+        </div>
 
-    <InputText id="subject" @bind-Value="Email.Subject" />
+        <EditForm Model="@email" OnValidSubmit="@(async () => await HandleValidSubmit())">
+            <p>
+                <label for="subject">Subject</label>
+                <InputText id="subject" @bind-Value="email.Subject"/>
+                <ValidationMessage For="() => email.Subject"/>
+            </p>
 
-    <button type="submit">Submit</button>
-</EditForm>
+            <p>
+                <label for="message">Message</label>
+                <InputTextArea id="message" @bind-Value="email.Message"/>
+                <ValidationMessage For="() => email.Message"/>
+            </p>
+
+            <DataAnnotationsValidator/>
+
+            @if (string.IsNullOrEmpty(errorMessage))
+            {
+                <p class="validation-message">@errorMessage</p>
+            }
+            <button class="primary-btn" type="submit">Submit</button>
+        </EditForm>
+    </div>
+}
+else
+{
+    <div>
+        <h1>Thank you for getting in touch!</h1>
+        <p>I'll be with you shortly.</p>
+        <button @onclick="ReturnToForm">Submit Another</button>
+    </div>
+}
 
 @code {
-    private Email Email = new Email();
+    private readonly Email email = new();
 
-    private void HandleValidSubmit()
+    static readonly HttpClient client = new();
+
+    private bool isSubmited;
+
+    private string errorMessage = string.Empty;
+
+    private void ReturnToForm()
     {
-        
-    
-    // Process the valid form
+        isSubmited = false;
     }
-    
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            await client.PostAsJsonAsync(
+                $"{Navigator.BaseUri}api/Contact", email);
+        }
+        catch
+        {
+            errorMessage = "There was an error submitting. Please try again!";
+            return;
+        }
+
+        isSubmited = true;
+    }
+
 }

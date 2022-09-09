@@ -1,7 +1,6 @@
-:root {
-    --main-bg-color: #333333;
-    --primary-btn-color:  #EBB93E;
-}
+@import "colors.css";
+@import "buttons.css";
+@import "layout.css";
 
 body {
     font-family: 'Rubik', sans-serif;
@@ -11,8 +10,8 @@ body {
 
 h1 {
     font-size: 2.5rem;
-    margin-bottom: 2rem;
-    line-height: 7rem;
+    line-height: 63px;
+    margin-bottom: 20px;
 }
 
 h2 {
@@ -27,33 +26,8 @@ h3 {
 }
 
 p {
-    margin-bottom: 1rem;
+    margin-bottom: 13px;
     line-height: 22px;
-}
-
-.container {
-    padding: 38px 20px
-}
-
-footer {
-    width: 100%;
-    padding: 20px;
-    background-color: #212021;
-}
-
-footer nav ul {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    row-gap: 15px;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-}
-
-footer nav ul li a {
-    color: white;
-    text-decoration: none;
 }
 
 /* Extra small devices (phones, 600px and down) */
