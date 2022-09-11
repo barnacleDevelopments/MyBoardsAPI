@@ -20,11 +20,6 @@ builder.Services.AddEntityFrameworkNpgsql()
 // TODO: Do I need access to the Http Context?
 builder.Services.AddHttpContextAccessor();
 
-// For Identity
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<MyBoardsDbContext>()
-    .AddDefaultTokenProviders();
-
 // Adding Authentication
 builder.Services.AddAuthentication(options =>
 {
@@ -48,6 +43,13 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// For Identity
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<MyBoardsDbContext>()
+    .AddDefaultTokenProviders();
+
+
+
 // Configure Serverside Blazor
 builder.Services.AddServerSideBlazor();
 
@@ -56,6 +58,15 @@ builder.Services.AddControllers();
 
 // Configure MVC Views
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddRazorPages();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.Name = ".AspNetCore.Identity.Application";
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+    options.SlidingExpiration = true;
+});
 
 // Add Services
 builder.Services.AddScoped<ImageService>();
@@ -72,13 +83,12 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapRazorPages();
     endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
     endpoints.MapBlazorHub();
 });
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-
-
 
 // Configure the HTTP request pipeline.
 app.UseHttpsRedirection(); // enable for production
