@@ -23,6 +23,7 @@ namespace MyBoardsAPI.Data
         public DbSet<PerformedRep> PerformedReps { get; set; } = null!;
         public DbSet<PerformedSet> PerformedSets { get; set; } = null!;
         public DbSet<SetHold> SetHolds { get; set; } = null!;
+        public DbSet<Feature> Features { get; set; }
 
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -72,5 +73,7 @@ namespace MyBoardsAPI.Data
                 .HasForeignKey(hs => hs.SetId)
                 .OnDelete(DeleteBehavior.ClientCascade);
         }
+
+        public DbSet<MyBoardsAPI.Models.Feature>? Feature { get; set; }
     }
 }
