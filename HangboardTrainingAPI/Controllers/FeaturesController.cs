@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using MyBoardsAPI.Models;
 
 namespace MyBoardsAPI.Controllers
 {
+    [Authorize]
     public class FeaturesController : Controller
     {
         private readonly MyBoardsDbContext _context;
@@ -56,7 +58,7 @@ namespace MyBoardsAPI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,Id,CreatedAt,UpdatedAt")] Feature feature)
+        public async Task<IActionResult> Create([Bind("Name,Description,IsRoadMap,Id,CreatedAt,UpdatedAt")] Feature feature)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +90,7 @@ namespace MyBoardsAPI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Description,Id,CreatedAt,UpdatedAt")] Feature feature)
+        public async Task<IActionResult> Edit(int id, [Bind("Name,Description,IsRoadMap,Id,CreatedAt,UpdatedAt")] Feature feature)
         {
             if (id != feature.Id)
             {

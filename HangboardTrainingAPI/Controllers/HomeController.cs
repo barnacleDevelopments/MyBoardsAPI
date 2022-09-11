@@ -31,47 +31,10 @@ public class HomeController : Controller
         var holds = await _db.Holds.ToListAsync();
         var holdCount = holds.Count();
 
-        // get all current features
-        var currentFeatures = new List<Feature>();
-        
-        currentFeatures.Add(new Feature()
-        {
-            Name = "Custom Hangboards",
-            Description = "Train with your own hangboard setup or choose from a veriaty of pre-configured boards."
-        });
-        
-        currentFeatures.Add(new Feature()
-        {
-            Name = "Custom Workouts",
-            Description = "Develop and share workouts using a granular editor."
-        });
-        
-        currentFeatures.Add(new Feature()
-        {
-            Name = "Training Overview",
-            Description = "Monitor your training on a week, month, and quarterly basis."
-        });
-        
-        // get all upcoming features
-        var upcomingFeatures = new List<Feature>();
-        
-        upcomingFeatures.Add(new Feature()
-        {
-            Name = "Auto Generated Workouts",
-            Description = "Train with your own hangboard setup or choose from a veriaty of pre-configured boards."
-        });
-        
-        upcomingFeatures.Add(new Feature()
-        {
-            Name = "Sharable Boards",
-            Description = "Develop and share workouts using a granular editor."
-        });
-        
-        upcomingFeatures.Add(new Feature()
-        {
-            Name = "Pain Monitoring",
-            Description = "Monitor your training on a week, month, and quarterly basis."
-        });
+        var features = await _db.Features.ToListAsync();
+
+        var currentFeatures = features.Where(f => !f.IsRoadMap).ToList();
+        var upcomingFeatures = features.Where(f => f.IsRoadMap).ToList();
 
         var ViewModel = new IndexView()
         {
