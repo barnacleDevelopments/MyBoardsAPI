@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace HangboardTrainingAPI.Models
+namespace MyBoardsAPI.Models
 {
     public class Hangboard : BaseModel
     {

@@ -1,5 +1,8 @@
-﻿namespace HangboardTrainingAPI.Models.StatisticModels
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace HangboardTrainingAPI.Models.StatisticModels
 {
+    [NotMapped]
     public class DayTrainTime
     {
         public DayOfWeek Day { get; set; }

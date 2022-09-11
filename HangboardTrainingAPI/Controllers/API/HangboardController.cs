@@ -1,17 +1,14 @@
-﻿using HangboardTrainingAPI.Models;
-using HangboardTrainingAPI.Services;
+﻿using HangboardTrainingAPI.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Web.Resource;
 using MyBoardsAPI.Data;
-using System.Security.Claims;
 using System.Text.Json;
 using MyBoardsAPI.Models.Auth;
 using Microsoft.AspNetCore.Identity;
+using MyBoardsAPI.Models;
 
-namespace HangboardTrainingAPI.Controllers
+namespace MyBoardsAPI.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]

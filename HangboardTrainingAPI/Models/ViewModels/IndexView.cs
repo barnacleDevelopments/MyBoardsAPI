@@ -1,7 +1,8 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using HangboardTrainingAPI.Models;
 
 namespace MyBoardsAPI.Models.ViewModels;
-
+[NotMapped]
 public class IndexView
 {
     public int HangboardCount { get; set; }

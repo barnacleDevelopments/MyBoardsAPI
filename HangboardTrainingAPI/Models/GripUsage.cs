@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HangboardTrainingAPI.Models
+namespace MyBoardsAPI.Models
 {
     public class GripUsage : BaseModel
     {

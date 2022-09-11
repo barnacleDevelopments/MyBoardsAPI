@@ -2,7 +2,7 @@
 using MyBoardsAPI.Models;
 using System.Text.Json.Serialization;
 
-namespace HangboardTrainingAPI.Models
+namespace MyBoardsAPI.Models
 {
     public class Hold : BaseModel
     {

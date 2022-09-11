@@ -56,7 +56,7 @@ namespace MyBoardsAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Hangboards");
+                    b.ToTable("Hangboards", (string)null);
                 });
 
             modelBuilder.Entity("HangboardTrainingAPI.Models.Hold", b =>
@@ -95,7 +95,7 @@ namespace MyBoardsAPI.Migrations
 
                     b.HasIndex("HangboardId");
 
-                    b.ToTable("Holds");
+                    b.ToTable("Holds", (string)null);
                 });
 
             modelBuilder.Entity("HangboardTrainingAPI.Models.PerformedRep", b =>
@@ -133,7 +133,7 @@ namespace MyBoardsAPI.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("PerformedReps");
+                    b.ToTable("PerformedReps", (string)null);
                 });
 
             modelBuilder.Entity("HangboardTrainingAPI.Models.PerformedSet", b =>
@@ -163,7 +163,7 @@ namespace MyBoardsAPI.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("PerformedSets");
+                    b.ToTable("PerformedSets", (string)null);
                 });
 
             modelBuilder.Entity("HangboardTrainingAPI.Models.Session", b =>
@@ -193,7 +193,7 @@ namespace MyBoardsAPI.Migrations
 
                     b.HasIndex("WorkoutId");
 
-                    b.ToTable("Sessions");
+                    b.ToTable("Sessions", (string)null);
                 });
 
             modelBuilder.Entity("HangboardTrainingAPI.Models.Set", b =>
@@ -250,7 +250,7 @@ namespace MyBoardsAPI.Migrations
 
                     b.HasIndex("WorkoutId");
 
-                    b.ToTable("Sets");
+                    b.ToTable("Sets", (string)null);
                 });
 
             modelBuilder.Entity("HangboardTrainingAPI.Models.Workout", b =>
@@ -285,7 +285,7 @@ namespace MyBoardsAPI.Migrations
 
                     b.HasIndex("HangboardId");
 
-                    b.ToTable("Workouts");
+                    b.ToTable("Workouts", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -511,7 +511,7 @@ namespace MyBoardsAPI.Migrations
 
                     b.HasIndex("HoldId");
 
-                    b.ToTable("SetHolds");
+                    b.ToTable("SetHolds", (string)null);
                 });
 
             modelBuilder.Entity("HangboardTrainingAPI.Models.Hold", b =>

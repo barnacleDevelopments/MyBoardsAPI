@@ -1,6 +1,6 @@
-using HangboardTrainingAPI.Models;
+using MyBoardsAPI.Models;
 
-namespace HangboardTrainingAPI.Models
+namespace MyBoardsAPI.Models
 {
     public class Feature : BaseModel
     {
