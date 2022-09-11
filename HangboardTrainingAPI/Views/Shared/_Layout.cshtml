@@ -8,9 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,200;1,300;1,400;1,500&display=swap" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/reset.css"/>
     <link rel="stylesheet" href="~/css/global.css"/>
+    <link rel="stylesheet" href="~/css/site.css" />
+  
 
     @RenderSection("Header", false)
 </head>
@@ -60,6 +63,7 @@
         })()
     </script>
 
+    @RenderSection("Scripts", required: false)
 </body>
 
 </html>
