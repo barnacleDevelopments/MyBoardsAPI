@@ -3,7 +3,7 @@ using MyBoardsAPI.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace HangboardTrainingAPI.Models
+namespace MyBoardsAPI.Models
 {
     public class Set : BaseModel
     {

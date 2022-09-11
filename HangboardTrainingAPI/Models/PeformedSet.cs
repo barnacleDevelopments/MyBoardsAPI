@@ -1,5 +1,5 @@
 ﻿using HangboardTrainingAPI.Enums;
-namespace HangboardTrainingAPI.Models
+namespace MyBoardsAPI.Models
 {
     public class PerformedSet : BaseModel
     {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyBoardsAPI.Models.Auth;
 
-namespace HangboardTrainingAPI.Controllers.API;
+namespace MyBoardsAPI.Controllers.API;
 
 [Authorize]
 [Route("api/[controller]")]

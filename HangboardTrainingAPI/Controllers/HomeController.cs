@@ -2,6 +2,7 @@ using HangboardTrainingAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using MyBoardsAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using MyBoardsAPI.Models;
 using MyBoardsAPI.Models.ViewModels;
 
 namespace MyBoardsAPI.Controllers;

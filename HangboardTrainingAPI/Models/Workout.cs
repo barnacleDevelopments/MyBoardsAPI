@@ -1,4 +1,4 @@
-﻿namespace HangboardTrainingAPI.Models
+﻿namespace MyBoardsAPI.Models
 {
     public class Workout : BaseModel
     {
