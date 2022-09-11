@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MyBoardsAPI.Services;
+using NuGet.Protocol.Plugins;
 
 namespace MyBoardsAPI.Controllers
 {
@@ -85,6 +86,55 @@ namespace MyBoardsAPI.Controllers
                 });
             }
             return Unauthorized();
+        }
+
+        [HttpPost]
+        [Route("forgot-password/{email}")]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, new Response
+                {
+                    Status = "Error",
+                    Message = $"user with email {email} not found!"
+                });
+            }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var resetLink = Url.Action("ResetPassword", "Account", new
+            {
+                token,
+                email = user.Email
+            }, Request.Scheme);
+            
+            try
+            {
+                await _mail.SendMail(
+                    user.Email, 
+                    "MyBoards - Password Reset", 
+                    "<p>You recently requested a password reset through your MyBoards application.</p> " +
+                    "<p>Please click the link bellow to reset your password</p>" +
+                    resetLink
+                );
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { 
+                    Status = "Error", 
+                    Message = "There was an error sending your password reset email. " +
+                              "This is an issue on our end. " +
+                              "Please try again later." 
+                });
+            }
+            
+            return Ok(new Response
+            {
+                Status = "Success", 
+                Message = "Successfully sent password reset email."
+            });
         }
 
         [HttpPost]

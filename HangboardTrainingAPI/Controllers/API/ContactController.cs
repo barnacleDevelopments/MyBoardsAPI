@@ -24,10 +24,10 @@ public class ContactController : Controller
     {
         try
         {
-            /*await _mail.SendMail(
+            await _mail.SendMail(
                 _configuration["MailSettings:SenderAddress"],
                 $"MyBoards - {email.Subject}",
-                email.Message);*/
+                email.Message);
             return Ok();
         }
         catch 
