@@ -20,13 +20,15 @@ nav.navbar {
     padding: 5px;
     display: flex;
     justify-content: right;
+    column-gap: 10px;
 }
 
 nav.navbar ul {
     display: flex;
     width: 100%;
     height: 100%;
-    gap: 5px;
+    gap: 10px;
+    
 }
 
 nav.navbar ul li {
@@ -80,7 +82,7 @@ footer nav ul li a {
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
     nav.navbar ul {
-        width: 222px;
+        width: max-content;
     }
 }
 /* Extra large devices (large laptops and desktops, 1200px and up) */
