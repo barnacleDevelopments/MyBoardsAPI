@@ -3,43 +3,44 @@
 
 @if (!isSubmited)
 {
-    <div id="contact-form">
-        <div class="contact-info">
-            <h1>Contact Form</h1>
-            <p>I'd love to get to know the climber in you!</p>
-            <h2>Feature Requests</h2>
-            <p>
-                MyBoards aims to be your esential companion for hangboard training.
-                Feature requests are welcome to help evolve the platform.
-            </p>
-            <h2>Partnerships</h2>
-            <p>
-                Currently, MyBoards is being developed by myself. If you love the platform
-                and want to get involved, please reach out!
-            </p>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4">
+            <div class="contact-info">
+                <h1>Contact Form</h1>
+                <p>I'd love to get to know the climber in you!</p>
+                <h2>Feature Requests</h2>
+                <p>
+                    MyBoards aims to be your esential companion for hangboard training.
+                    Feature requests are welcome to help evolve the platform.
+                </p>
+                <h2>Partnerships</h2>
+                <p>
+                    Currently, MyBoards is being developed by myself. If you love the platform
+                    and want to get involved, please reach out!
+                </p>
+            </div>
         </div>
+        <div class="col-md-6">
+            <EditForm Model="@email" OnValidSubmit="@(async () => await HandleValidSubmit())">
+                <div class="mb-3">
+                    <label for="subject">Subject</label>
+                    <InputText id="subject" class="form-control" @bind-Value="email.Subject"/>
+                    <ValidationMessage For="() => email.Subject"/>
+                </div>
+                <div class="mb-3">
+                    <label for="message">Message</label>
+                    <InputTextArea id="message" class="form-control" @bind-Value="email.Message"/>
+                    <ValidationMessage For="() => email.Message"/>
+                </div>
+                <DataAnnotationsValidator/>
 
-        <EditForm Model="@email" OnValidSubmit="@(async () => await HandleValidSubmit())">
-            <p>
-                <label for="subject">Subject</label>
-                <InputText id="subject" @bind-Value="email.Subject"/>
-                <ValidationMessage For="() => email.Subject"/>
-            </p>
-
-            <p>
-                <label for="message">Message</label>
-                <InputTextArea id="message" @bind-Value="email.Message"/>
-                <ValidationMessage For="() => email.Message"/>
-            </p>
-
-            <DataAnnotationsValidator/>
-
-            @if (string.IsNullOrEmpty(errorMessage))
-            {
-                <p class="validation-message">@errorMessage</p>
-            }
-            <button class="primary-btn" type="submit">Submit</button>
-        </EditForm>
+                @if (string.IsNullOrEmpty(errorMessage))
+                {
+                    <p class="validation-message">@errorMessage</p>
+                }
+                <button class="primary-btn" type="submit">Submit</button>
+            </EditForm>
+        </div>
     </div>
 }
 else
