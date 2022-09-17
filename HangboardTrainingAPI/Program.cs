@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using MyBoardsAPI.Data;
 using MyBoardsAPI.Models.Auth;
 using System.Text;
+using MyBoardsAPI;
 using MyBoardsAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -67,6 +68,10 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
     options.SlidingExpiration = true;
 });
+
+builder.Services.AddHostedService(sp => new NpmWatchHostedService(
+    enabled: sp.GetRequiredService<IWebHostEnvironment>().IsDevelopment(),
+    logger: sp.GetRequiredService<ILogger<NpmWatchHostedService>>()));
 
 // Add Services
 builder.Services.AddScoped<ImageService>();

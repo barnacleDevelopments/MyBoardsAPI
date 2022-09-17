@@ -12,20 +12,30 @@
         {
             @foreach (var feature in CurrentFeatures)
             {
-                <li class="card">
-                    <h3>@feature.Name</h3>
-                    <p>@feature.Description</p>
-                </li>
+                <div class="card w-100 mb-3" style="width: 18rem;">
+                    <div class="card-body">
+                        <h3>@feature.Name</h3>
+                        <h4>@feature.Description</h4>                        
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
             }
         }
         else
         {
             @foreach (var feature in UpcomingFeatures)
             {
-                <li class="card">
-                    <h3>@feature.Name</h3>
-                    <p>@feature.Description</p>
-                </li>
+                <div class="card w-100 mb-3" style="width: 18rem;">
+                    <div class="card-body">
+                        <h3>@feature.Name</h3>
+                        <h4>@feature.Description</h4>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
             }
         }
     </ul>
