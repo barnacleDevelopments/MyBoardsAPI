@@ -1,56 +1,43 @@
 @import "colors.css";
 @import "buttons.css";
 @import "layout.css";
-
 body {
-    font-family: 'Rubik', sans-serif;
-    background-color: #333333;
-    color: white;
+  font-family: "Rubik", sans-serif;
+  background-color: #333333;
+  color: white;
 }
 
 h1 {
-    font-size: 2.5rem;
-    line-height: 63px;
-    margin-bottom: 20px;
+  font-size: 2.5rem;
+  line-height: 63px;
+  margin-bottom: 20px;
 }
 
 h2 {
-    font-size: 2rem;
-    line-height: 63px;
+  font-size: 2rem;
+  line-height: 63px;
 }
 
 h3 {
-    font-size: 1.7rem;
-    line-height: 2rem;
-    margin-bottom: 10px;
+  font-size: 1.7rem;
+  line-height: 2rem;
+  margin-bottom: 10px;
 }
 
 p {
-    margin-bottom: 13px;
-    line-height: 22px;
+  margin-bottom: 13px;
+  line-height: 22px;
 }
 
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-
-}
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-
-}
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-
-}
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-   .container {
-       padding: 38px 40px
-   }
-
+  .container {
+    padding: 38px 40px;
+  }
 }
 /* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
 
-}
-
+/*# sourceMappingURL=global.css.map */

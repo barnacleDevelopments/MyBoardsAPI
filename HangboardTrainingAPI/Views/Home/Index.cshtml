@@ -6,17 +6,13 @@
     Layout = "_Layout";
 }
 
-@section Header {
-    <link rel="stylesheet" href="~/css/index.css"/>
-}
-
 <section class="hero-container">
     <div>
         <h1>MYBOARDS:</h1>
         <p>Advanced hangboard training application for climbers. </p>
     </div>
     <div class="hero-btn-container">
-        <a href="/Contact" class="btn-hero">DOWNLOAD NOW</a>
+        <a href="/Contact" class="btn btn-primary btn-lg">DOWNLOAD NOW</a>
     </div>
 </section>
 
@@ -31,19 +27,19 @@
         }))
 </section>
 
-<section class="container stats">
-    <ul class="stats-list">
-        <li class="stat">
+<section class="stats d-flex justify-content-center pt-4 pb-4">
+    <div class="row stats-list container">
+        <div class="stat col-sm-12 col-lg-4">
             <strong>Total Boards Created</strong>
             <span>@Model.HangboardCount</span>
-        </li>
-        <li class="stat">
+        </div>
+        <div class="stat col-sm-12 col-lg-4">
             <strong>Total Workouts Created</strong>
             <span>@Model.WorkoutCount</span>
-        </li>
-        <li class="stat">
+        </div>
+        <div class="stat col-sm-12 col-lg-4">
             <strong>Total Hold Pins Placed</strong>
             <span>@Model.HoldCount</span>
-        </li>
-    </ul>
+        </div>
+    </div>
 </section>

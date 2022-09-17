@@ -6,6 +6,19 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-HangboardTrainingAPI-00A94520-A864-4D30-BE0C-AA69A8B39BBF</UserSecretsId>
   </PropertyGroup>
+
+  <Target Name="Install NPM modules" BeforeTargets="Build" Inputs="package-lock.json" Outputs="node_modules/.install-stamp">
+   <!-- <Exec Command="npm ci" Condition="'$(OS)' != 'Windows_NT'" />-->
+<!--
+    <Exec Command="npm install"  />
+-->
+    <Touch Files="node_modules/.install-stamp" AlwaysCreate="true" />
+  </Target>
+
+  <Target Name="Compile SCSS" BeforeTargets="CopyFilesToPublishDirectory">
+    <Exec Command="npm run build:css" />
+    <Copy SourceFiles="$(ProjectDir)wwwroot/css/site.css" DestinationFolder="$(PublishDir)wwwroot/css" />
+  </Target>
   
   <ItemGroup>
     <PackageReference Include="Azure.Storage.Blobs" Version="12.13.1" />
@@ -32,11 +45,8 @@
     <Folder Include="Data\" />
     <Folder Include="Models\" />
     <Folder Include="wwwroot\*" />
-    <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />
-    <Folder Include="wwwroot\lib\bootstrap\" />
-    <Folder Include="wwwroot\lib\bootstrap\dist" />
     <Folder Include="wwwroot\lib\jquery-validation-unobtrusive\" />
     <Folder Include="wwwroot\lib\jquery-validation\" />
     <Folder Include="wwwroot\lib\jquery-validation\dist\" />
@@ -51,6 +61,18 @@
     <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.min.css.map" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Styles\colors.scss" />
+    <None Include="Styles\contact.scss" />
+    <None Include="Styles\forms.scss" />
+    <None Include="Styles\global.scss" />
+    <None Include="Styles\index.scss" />
+    <None Include="Styles\layout.scss" />
+    <None Include="Styles\login.scss" />
+    <None Include="Styles\privacy.scss" />
+    <None Include="Styles\site.scss" />
   </ItemGroup>
 
 </Project>
