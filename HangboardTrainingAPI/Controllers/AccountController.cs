@@ -47,7 +47,7 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    /* TODO: Remove For Production [ValidateAntiForgeryToken]*/
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> ResetPassword(PasswordReset passwordReset)
     {
         if (!ModelState.IsValid)
@@ -71,8 +71,7 @@ public class AccountController : Controller
         
         return RedirectToAction(nameof(ResetPasswordConfirmation));
     }
-
-
+    
     public IActionResult ResetPasswordConfirmation()
     {
         return View("SuccessPasswordReset");

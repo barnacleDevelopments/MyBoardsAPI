@@ -49,8 +49,6 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<MyBoardsDbContext>()
     .AddDefaultTokenProviders();
 
-
-
 // Configure Serverside Blazor
 builder.Services.AddServerSideBlazor();
 
