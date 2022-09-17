@@ -7,6 +7,12 @@
 
 
 // Then add additional custom code here
+html {
+    height: 100%;
+    background-color: var(--bs-dark);
+}
+
+
 @import "layout";
 @import "global";
 @import "contact";

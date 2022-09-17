@@ -1,47 +1,11 @@
 @using MyBoardsAPI.Models
 @inject NavigationManager Navigator
+@inject IJSRuntime JSRuntime
+@using System.ComponentModel
 
 @if (!isSubmited)
 {
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-4">
-            <div class="contact-info">
-                <h1>Contact Form</h1>
-                <p>I'd love to get to know the climber in you!</p>
-                <h2>Feature Requests</h2>
-                <p>
-                    MyBoards aims to be your esential companion for hangboard training.
-                    Feature requests are welcome to help evolve the platform.
-                </p>
-                <h2>Partnerships</h2>
-                <p>
-                    Currently, MyBoards is being developed by myself. If you love the platform
-                    and want to get involved, please reach out!
-                </p>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <EditForm Model="@email" OnValidSubmit="@(async () => await HandleValidSubmit())">
-                <div class="mb-3">
-                    <label for="subject">Subject</label>
-                    <InputText id="subject" class="form-control" @bind-Value="email.Subject"/>
-                    <ValidationMessage For="() => email.Subject"/>
-                </div>
-                <div class="mb-3">
-                    <label for="message">Message</label>
-                    <InputTextArea id="message" class="form-control" @bind-Value="email.Message"/>
-                    <ValidationMessage For="() => email.Message"/>
-                </div>
-                <DataAnnotationsValidator/>
-
-                @if (string.IsNullOrEmpty(errorMessage))
-                {
-                    <p class="validation-message">@errorMessage</p>
-                }
-                <button class="primary-btn" type="submit">Submit</button>
-            </EditForm>
-        </div>
-    </div>
+   
 }
 else
 {
@@ -53,6 +17,8 @@ else
 }
 
 @code {
+
+
     private readonly Email email = new();
 
     static readonly HttpClient client = new();
@@ -60,6 +26,47 @@ else
     private bool isSubmited;
 
     private string errorMessage = string.Empty;
+    
+    private string captchaResponse;
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        try
+        {
+            if (firstRender)
+            {
+                await JSRuntime.InvokeAsync<int>(
+                    "googleRecaptcha",
+                    DotNetObjectReference.Create(this),
+                    "google_recaptcha ",
+                    "6LcOkggiAAAAAIs14YDlLbAoVBjMLFYBQiJ8kEsU");
+            }
+            await base.OnAfterRenderAsync(firstRender);
+        }
+        catch (Exception ex)
+        {
+            
+        }
+        
+       
+    }
+    
+    [JSInvokable,   EditorBrowsable(EditorBrowsableState.Never)]
+    public void CallbackOnSuccess(string response)
+    {
+        captchaResponse =   response;
+    }
+    
+    [JSInvokable,   EditorBrowsable(EditorBrowsableState.Never)]
+    public void CallbackOnExpired(string response)
+    {
+    //...
+    }
+    
+    private void ShowResponse()
+    {
+        captchaResponse = $"The response for the Google reCAPTCHA widget: {captchaResponse}";
+    }
 
     private void ReturnToForm()
     {
@@ -81,5 +88,5 @@ else
 
         isSubmited = true;
     }
-
 }
+

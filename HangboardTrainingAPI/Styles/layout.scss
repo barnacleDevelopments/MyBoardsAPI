@@ -13,22 +13,7 @@ nav.navbar {
 footer {
     width: 100%;
     padding: 20px;
-    background-color: #212021;
-}
-
-footer nav ul {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    row-gap: 15px;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-}
-
-footer nav ul li a {
-    color: white;
-    text-decoration: none;
+    background-color: var(bs-dark);
 }
 
 /* Extra small devices (phones, 600px and down) */

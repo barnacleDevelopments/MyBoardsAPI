@@ -16,10 +16,10 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">MyBoards</a>
+        <a class="navbar-brand" asp-action="Index">MyBoards</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -36,29 +36,28 @@
 <div class="site-wrapper">
     @RenderBody()
 </div>
-<footer>
+<footer class="pt-5 pb-5 bg-dark">
     <nav>
-        <ul>
-            <li>
-                <a href="/">Home</a>
-            </li>
-            <li>
-                <a href="/Home/Contact">Contact</a>
-            </li>
-            <li>
-                <a href="/Home/PrivacyPolicy">Privacy Policy</a>
-            </li>
-            <li>
-                <a href="/Home/EULA">EULA</a>
-            </li>
-        </ul>
+        <div class="row text-lg-center gy-3">
+            <div class="nav-item col-sm-12 col-lg-3">
+                <a class="nav-link" asp-action="Index">Home</a>
+            </div>
+            <div class="nav-item col-sm-12 col-lg-3">
+                <a class="nav-link" asp-action="Contact">Contact</a>
+            </div>
+            <div class="nav-item col-sm-12 col-lg-3">
+                <a class="nav-link" asp-action="PrivacyPolicy">Privacy Policy</a>
+            </div>
+            <div class="nav-item col-sm-12 col-lg-3">
+                <a class="nav-link" asp-action="EULA">EULA</a>
+            </div>
+        </div>
     </nav>
 </footer>
 
 @* TODO: Change this for production *@
-<base href="~/"/>
-<script type="text/javascript" src="lib/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="_framework/blazor.server.js" autostart="false"></script>
+<base href="~/" />
+<script src="_framework/blazor.server.js" autostart="false"></script> 
 <script>
         (function start() {
             Blazor.start({
@@ -68,6 +67,7 @@
         })()
     </script>
 
+<script type="text/javascript" src="~/lib/bootstrap/bootstrap.min.js"></script>
 
 
 @RenderSection("Scripts", false)

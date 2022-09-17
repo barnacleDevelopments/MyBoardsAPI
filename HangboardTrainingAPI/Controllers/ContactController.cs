@@ -3,10 +3,7 @@ using MyBoardsAPI.Models;
 using MyBoardsAPI.Models.Auth;
 using MyBoardsAPI.Services;
 
-namespace MyBoardsAPI.Controllers.API;
-
-[Route("api/[controller]")]
-[ApiController]
+namespace MyBoardsAPI.Controllers;
 public class ContactController : Controller
 {
     private readonly MailService _mail;
