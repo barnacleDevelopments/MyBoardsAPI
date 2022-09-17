@@ -48,11 +48,6 @@ public class HomeController : Controller
         return View("Index", ViewModel);
     }
 
-    public IActionResult Contact()
-    {
-        return View("Contact");
-    }
-
     public IActionResult Roadmap()
     {
         return View("Roadmap");

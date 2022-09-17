@@ -14,25 +14,33 @@ public class ContactController : Controller
         _mail = mail;
         _configuration = configuration;
     }
+
+    [HttpGet]
+    public IActionResult Contact(Email? email)
+    {
+        return View("Contact", email);
+    }
     
-    // GET
     [HttpPost]
     public async Task<IActionResult> PostForm(Email email)
     {
         try
         {
-            await _mail.SendMail(
+            /*await _mail.SendMail(
                 _configuration["MailSettings:SenderAddress"],
                 $"MyBoards - {email.Subject}",
-                email.Message);
-            return Ok();
+                email.Message);*/
+            return Redirect(nameof(SuccessMessage));
         }
-        catch 
+        catch
         {
-            return StatusCode(StatusCodes.Status500InternalServerError, new Response { 
-                Status = "Error", 
-                Message = "There was an error sending your email. Please try again." 
-            });
+            return View("ContactFail", email);
         }
-    } 
+    }
+
+    [HttpGet]
+    public IActionResult SuccessMessage(Email email)
+    {
+        return View("ContactSuccess");
+    }
 }
