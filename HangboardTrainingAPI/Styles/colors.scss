@@ -1,4 +1,21 @@
+$primary: #EBB93E;
+$secondary: #8f5325;
+$success: #3e8d63;
+$info: #13101c;
+$warning: #945707;
+$danger: #d62518;
+$light: #f8f9fa;
+$dark: #212021;
+
+.bg-black {
+  background-color: $dark;
+}
+
 $theme-colors: (
-        "dark":  #212021,
-        "primary": #EBB93E,
+        "dark":  $dark,
+        "primary": $primary,
+);
+
+$colors: (
+        "black": $dark,
 );

@@ -21,6 +21,7 @@ namespace MyBoardsAPI
         {
             _enabled = enabled;
             _logger = logger;
+            _process = new Process();
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
