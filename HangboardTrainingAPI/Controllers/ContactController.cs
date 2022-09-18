@@ -16,7 +16,7 @@ public class ContactController : Controller
     }
 
     [HttpGet]
-    public IActionResult Contact(Email? email)
+    public IActionResult Index(Email? email)
     {
         return View("Contact", email);
     }

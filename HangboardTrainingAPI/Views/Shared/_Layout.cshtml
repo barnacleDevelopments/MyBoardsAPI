@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnv
+<!DOCTYPE html>
 <html>
 <head>
     <title>@ViewData["Title"]</title>
@@ -26,7 +27,7 @@
                     <a class="nav-link active" aria-current="page" asp-controller="Home" asp-action="Index">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-controller="Contact" asp-action="Contact">Contact</a>
+                    <a class="nav-link" asp-controller="Contact" asp-action="Index">Contact</a>
                 </li>
             </ul>
             <partial name="_LoginPartial"/>
@@ -40,36 +41,42 @@
     <nav>
         <div class="row text-lg-center gy-3">
             <div class="nav-item col-sm-12 col-lg-3">
-                <a class="nav-link" asp-action="Index">Home</a>
+                <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
             </div>
             <div class="nav-item col-sm-12 col-lg-3">
-                <a class="nav-link" asp-controller="Contact" asp-action="Contact">Contact</a>
+                <a class="nav-link" asp-controller="Contact" asp-action="Index">Contact</a>
             </div>
             <div class="nav-item col-sm-12 col-lg-3">
-                <a class="nav-link" asp-action="PrivacyPolicy">Privacy Policy</a>
+                <a class="nav-link" asp-controller="Home" asp-action="PrivacyPolicy">Privacy Policy</a>
             </div>
             <div class="nav-item col-sm-12 col-lg-3">
-                <a class="nav-link" asp-action="EULA">EULA</a>
+                <a class="nav-link" asp-controller="Home" asp-action="EULA">EULA</a>
             </div>
         </div>
     </nav>
 </footer>
 
-@* TODO: Change this for production *@
+@* Setup Blazor Server *@
 <base href="~/" />
-<script src="_framework/blazor.server.js" autostart="false"></script> 
-<script>
+@if (hostingEnv.IsDevelopment())
+{
+    <script src="_framework/blazor.server.js" autostart="false"></script> 
+    <script>
         (function start() {
             Blazor.start({
                 logLevel: 1, // LogLevel.Debug
                 configureSignalR: builder => builder.configureLogging("debug") // LogLevel.Debug
             });
         })()
-</script>
+    </script>
+}
+else
+{
+    <script src="_framework/blazor.server.js"></script>
+}
 
 <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="~/lib/bootstrap/bootstrap.min.js"></script>
-
 
 @RenderSection("Scripts", false)
 </body>

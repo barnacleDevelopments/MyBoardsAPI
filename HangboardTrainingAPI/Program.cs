@@ -18,9 +18,6 @@ builder.Services.AddEntityFrameworkNpgsql()
     .AddDbContext<MyBoardsDbContext>(opt =>
     opt.UseNpgsql(myBoardsConnectionString));
 
-// TODO: Do I need access to the Http Context?
-builder.Services.AddHttpContextAccessor();
-
 // Adding Authentication
 builder.Services.AddAuthentication(options =>
 {
@@ -66,6 +63,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
     options.SlidingExpiration = true;
 });
+
 
 builder.Services.AddHostedService(sp => new NpmWatchHostedService(
     enabled: sp.GetRequiredService<IWebHostEnvironment>().IsDevelopment(),
