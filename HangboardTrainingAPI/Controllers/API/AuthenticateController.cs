@@ -7,6 +7,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MyBoardsAPI.Services;
 using NuGet.Protocol.Plugins;
@@ -177,11 +179,13 @@ namespace MyBoardsAPI.Controllers
             }
 
             var confirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var confirmationLink = Url.Action("ConfirmEmail", "Account", new
-            {
-                token = confirmationToken, 
-                email = user.Email
-            }, Request.Scheme);
+            confirmationToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(confirmationToken));
+
+            var callbackUrl = Url.Page(
+                "/Account/ConfirmEmail",
+                pageHandler: null,
+                values: new { area = "Identity", userId = user.Id, code = confirmationToken },
+                protocol: Request.Scheme);
 
             try
             {
@@ -189,11 +193,11 @@ namespace MyBoardsAPI.Controllers
                     user.Email, 
                     "MyBoards - Email Confirmation", 
                     $"<p>Thank you for accepting my invitation to the MyBoards App Alpha testing.</p> " +
-                    $"Please click the <a href='${confirmationLink}'>confirmation link</a> to confirm your email. After that " +
+                    $"Please click the <a href='${callbackUrl}'>confirmation link</a> to confirm your email. After that " +
                     $"you are free to login to the app and test things out!" +
                     $"<p>If you have the time please visit the google play store and leave some feedback. It will " +
                     $"be used to further develop the platform to better suit climbers needs.</p>" +
-                    $"{confirmationLink}");
+                    $"{callbackUrl}");
             }
             catch
             {
@@ -318,6 +322,32 @@ namespace MyBoardsAPI.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpPost]
+        [Route("re-confirm")]
+        public async Task<IActionResult> ResendEmailConfirmation(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            var userId = await _userManager.GetUserIdAsync(user);
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            var callbackUrl = Url.Page(
+                "/Account/ConfirmEmail",
+                pageHandler: null,
+                values: new { userId = userId, code = code },
+                protocol: Request.Scheme);
+            await _mail.SendMail(
+                email,
+                "Confirm your email",
+                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+            return Ok(new Response { Status = "Success", Message = "Confirmation email sent successfully!" });
         }
 
         private JwtSecurityToken CreateToken(List<Claim> authClaims)

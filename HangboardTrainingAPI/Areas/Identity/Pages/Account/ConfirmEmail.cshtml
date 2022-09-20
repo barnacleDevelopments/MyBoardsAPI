@@ -1,7 +1,7 @@
 ﻿@page
 @model ConfirmEmailModel
 @{
-    ViewData["Title"] = "Email Confirmed";
+    ViewData["Title"] = "Email Confirmation";
 }
 
 @* TODO: Change the google play store app link to the my boards link *@
@@ -9,8 +9,9 @@
     <h1>@ViewData["Title"]</h1>
     <p>@Model.StatusMessage</p>
     <p>
-        You are now all signed up for the MyBoards app! Please
-        visit the <a href="play.google.com">Goggle Play Store</a> to download the the app. 
+        Now if your email is successfully confirmed, please
+        visit the <a href="play.google.com">Goggle Play Store</a> 
+        to download the the app. Happy training!  
     </p>
-    <a class="mt-3" href="play.google.com" class="btn btn-primary">Go to Play Store</a>
+    <a href="play.google.com" class="btn btn-primary mt-3">Go to Play Store</a>
 </div>
