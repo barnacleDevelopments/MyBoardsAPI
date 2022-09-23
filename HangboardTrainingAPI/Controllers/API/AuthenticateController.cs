@@ -15,8 +15,9 @@ using NuGet.Protocol.Plugins;
 
 namespace MyBoardsAPI.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Area("api")]
+    [Route("[area]/[controller]")]
     public class AuthenticateController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -98,10 +99,10 @@ namespace MyBoardsAPI.Controllers
 
             if (user == null)
             {
-                return StatusCode(StatusCodes.Status404NotFound, new Response
+                return Ok(new Response
                 {
-                    Status = "Error",
-                    Message = $"user with email {email} not found!"
+                    Status = "Success", 
+                    Message = "Successfully sent password reset email."
                 });
             }
 
@@ -117,8 +118,9 @@ namespace MyBoardsAPI.Controllers
                 await _mail.SendMail(
                     user.Email, 
                     "MyBoards - Password Reset", 
-                    "<p>You recently requested a password reset through your MyBoards application.</p> " +
-                    "<p>Please click the link bellow to reset your password</p>" +
+                    "<p>You recently requested a password reset through your MyBoards application. If this" +
+                    " wasn't you, please visit <a href='www.myboards.app'>www.myboards.app</a> to change your password.</p> " +
+                    "<p>Please click the link bellow to reset your password:</p>" +
                     resetLink
                 );
             }
@@ -325,7 +327,7 @@ namespace MyBoardsAPI.Controllers
         }
 
         [HttpPost]
-        [Route("re-confirm")]
+        [Route("re-confirm/{email}")]
         public async Task<IActionResult> ResendEmailConfirmation(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
@@ -334,12 +336,17 @@ namespace MyBoardsAPI.Controllers
                 return BadRequest();
             }
 
+            if (user.EmailConfirmed)
+            {
+                return Ok(new Response { Status = "Success", Message = "Confirmation email sent successfully!" });
+            }
+
             var userId = await _userManager.GetUserIdAsync(user);
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-            var callbackUrl = Url.Page(
-                "/Account/ConfirmEmail",
-                pageHandler: null,
+            var callbackUrl = Url.Action(
+                "ConfirmEmail",
+                "Account",
                 values: new { userId = userId, code = code },
                 protocol: Request.Scheme);
             await _mail.SendMail(

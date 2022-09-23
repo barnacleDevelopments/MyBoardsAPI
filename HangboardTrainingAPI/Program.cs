@@ -64,7 +64,6 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
-
 builder.Services.AddHostedService(sp => new NpmWatchHostedService(
     enabled: sp.GetRequiredService<IWebHostEnvironment>().IsDevelopment(),
     logger: sp.GetRequiredService<ILogger<NpmWatchHostedService>>()));
@@ -84,8 +83,8 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapRazorPages();
     endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapRazorPages();
     endpoints.MapBlazorHub();
 });
 

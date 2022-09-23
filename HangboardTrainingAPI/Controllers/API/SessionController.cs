@@ -9,8 +9,9 @@ using MyBoardsAPI.Models.Auth;
 namespace MyBoardsAPI.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
     [ApiController]
+    [Area("api")]
+    [Route("[area]/[controller]")]
     public class SessionController : ControllerBase
     {
         private readonly ILogger<WorkoutController> _logger;
