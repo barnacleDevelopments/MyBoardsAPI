@@ -6,13 +6,14 @@ using MyBoardsAPI.Models.Auth;
 namespace MyBoardsAPI.Controllers.API;
 
 [Authorize]
-[Route("api/[controller]")]
 [ApiController]
-public class AccountController : Controller
+[Area("api")]
+[Route("[area]/[controller]")]
+public class ApiAccountController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public AccountController(UserManager<ApplicationUser> userManager)
+    public ApiAccountController(UserManager<ApplicationUser> userManager)
     {
         _userManager = userManager;
     } 
