@@ -230,36 +230,6 @@ namespace MyBoardsAPI.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("MyBoardsAPI.Models.Feature", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsRoadMap")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Features");
-                });
-
             modelBuilder.Entity("MyBoardsAPI.Models.Hangboard", b =>
                 {
                     b.Property<int>("Id")
@@ -397,12 +367,17 @@ namespace MyBoardsAPI.Migrations
                     b.Property<int>("SessionId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("SetId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SessionId");
+
+                    b.HasIndex("SetId");
 
                     b.ToTable("PerformedSets");
                 });
@@ -632,7 +607,15 @@ namespace MyBoardsAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MyBoardsAPI.Models.Set", "Set")
+                        .WithMany("PerformedSet")
+                        .HasForeignKey("SetId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
                     b.Navigation("Session");
+
+                    b.Navigation("Set");
                 });
 
             modelBuilder.Entity("MyBoardsAPI.Models.Session", b =>
@@ -711,6 +694,8 @@ namespace MyBoardsAPI.Migrations
 
             modelBuilder.Entity("MyBoardsAPI.Models.Set", b =>
                 {
+                    b.Navigation("PerformedSet");
+
                     b.Navigation("SetHolds");
                 });
 

@@ -1,5 +1,5 @@
 {
-  "name": "MyBoards",
+  "name": "myboards",
   "private": true,
   "scripts": {
     "prebuild:css": "rm -rf wwwroot/css",

@@ -1,7 +1,7 @@
 ﻿using Azure;
 using Azure.Storage.Blobs;
 
-namespace HangboardTrainingAPI.Services
+namespace MyBboardsAPI.Services
 {
     public class ImageService
     {

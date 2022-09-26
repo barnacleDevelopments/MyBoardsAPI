@@ -1,5 +1,4 @@
-﻿using HangboardTrainingAPI.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyBoardsAPI.Data;
 using Microsoft.EntityFrameworkCore;

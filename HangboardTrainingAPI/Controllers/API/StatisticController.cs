@@ -28,6 +28,30 @@ namespace MyBoardsAPI.Controllers
             _userManager = userManager;
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> GeneralStats()
+        {
+            // boards created 
+            var hangboards = await _db.Hangboards.ToListAsync();
+            var boardCount = hangboards.Count();
+
+            // workouts created 
+            var workouts = await _db.Workouts.ToListAsync();
+            var workoutCount = workouts.Count();
+
+            // pins placed 
+            var holds = await _db.Holds.ToListAsync();
+            var holdCount = holds.Count();
+
+            return Ok(new
+            {
+                HangboardCount = boardCount,
+                WorkoutCount = workoutCount,
+                HoldCount = holdCount
+            });
+        }
+
         [HttpGet("PerformedTime")]
         public async Task<IActionResult> GetTotalPerformedTime()
         {

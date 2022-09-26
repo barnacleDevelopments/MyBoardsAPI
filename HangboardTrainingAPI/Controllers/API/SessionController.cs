@@ -65,6 +65,7 @@ namespace MyBoardsAPI.Controllers
                         PerformedReps = session.RepLog
                             .Where(performedRep => performedRep.SetId == set.Id)
                             .ToList(),
+                        SetId = set.Id
                     }).ToList();
                 }
 
@@ -72,7 +73,10 @@ namespace MyBoardsAPI.Controllers
 
                 await _db.SaveChangesAsync();
 
-                return Ok();
+                return Ok(new
+                {
+                    SessionId = newSession.Id
+                });
 
             } catch (Exception ex)
             {
@@ -80,6 +84,70 @@ namespace MyBoardsAPI.Controllers
                 return StatusCode(500, "Internal Server Error");
             }
             #endregion
+        }
+
+        [HttpPost("LogRepetition/{sessionId}")]
+        public async Task<IActionResult> LogRepetition(int sessionId, PerformedRep rep)
+        {
+            try
+            {
+                string userId = _userManager.GetUserId(User);
+
+                if (String.IsNullOrEmpty(userId))
+                {
+                    return Unauthorized();
+                }
+
+                var session = await _db.Sessions
+                    .Include(s => s.PerformedSets)
+                    .ThenInclude(s => s.PerformedReps)
+                    .Include(s => s.RepLog)
+                    .FirstOrDefaultAsync(s => s.Id == sessionId);
+
+                if (session == null)
+                {
+                    return StatusCode(500);
+                }
+
+                // get the associated workout 
+                var workout = await _db.Workouts
+                    .Include(workout => workout.Sets)
+                    .FirstOrDefaultAsync(workout => workout.Id == session.WorkoutId);
+
+                // loop over the sets and create performed sets 
+                // TODO: how to add new performed rep to existing performed sets.
+                session.PerformedSets = workout.Sets.Select(set => 
+                {
+                    var performedSet = new PerformedSet
+                    {
+                        SessionId = session.Id,
+                        LeftGripType = set.LeftGripType,
+                        RightGripType = set.RightGripType,
+                        PerformedReps = new List<PerformedRep> { rep }
+                    };
+
+                    var existingPerformedSet = session.PerformedSets
+                        .Where(ps => ps.SetId == rep.SetId)
+                        .FirstOrDefault();
+
+                    if (existingPerformedSet == null) return performedSet;
+
+                    performedSet = existingPerformedSet;
+
+                    performedSet.PerformedReps.Add(rep);
+
+                    return performedSet;
+
+                }).ToList();
+
+                return Ok();
+
+            } catch(Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside the LogRepetition method inside the SessionController: {ex}");
+                return StatusCode(500, "Internal Server Error");
+            }
+           
         }
     }
 }

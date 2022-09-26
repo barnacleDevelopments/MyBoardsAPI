@@ -1,5 +1,4 @@
-﻿using HangboardTrainingAPI.Services;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyBoardsAPI.Data;
@@ -7,6 +6,7 @@ using System.Text.Json;
 using MyBoardsAPI.Models.Auth;
 using Microsoft.AspNetCore.Identity;
 using MyBoardsAPI.Models;
+using MyBboardsAPI.Services;
 
 namespace MyBoardsAPI.Controllers
 {
