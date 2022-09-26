@@ -12,14 +12,14 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyBoardsAPI.Migrations
 {
     [DbContext(typeof(MyBoardsDbContext))]
-    [Migration("20220911123432_FeatureIsRoadmap")]
-    partial class FeatureIsRoadmap
+    [Migration("20220925191714_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.8")
+                .HasAnnotation("ProductVersion", "6.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -259,7 +259,7 @@ namespace MyBoardsAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Feature");
+                    b.ToTable("Features");
                 });
 
             modelBuilder.Entity("MyBoardsAPI.Models.Hangboard", b =>
@@ -282,6 +282,9 @@ namespace MyBoardsAPI.Migrations
                     b.Property<string>("ImageURL")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsDefaultBoard")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .IsRequired()

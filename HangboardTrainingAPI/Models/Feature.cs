@@ -1,5 +1,3 @@
-using MyBoardsAPI.Models;
-
 namespace MyBoardsAPI.Models
 {
     public class Feature : BaseModel
