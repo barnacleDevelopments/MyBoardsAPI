@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MyBoardsAPI.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,6 +31,8 @@ namespace MyBoardsAPI.Migrations
                     Id = table.Column<string>(type: "text", nullable: false),
                     RefreshToken = table.Column<string>(type: "text", nullable: true),
                     RefreshTokenExpiryTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    HasCreatedFirstWorkout = table.Column<bool>(type: "boolean", nullable: false),
+                    HasCreatedFirstHangboard = table.Column<bool>(type: "boolean", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -52,6 +54,23 @@ namespace MyBoardsAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Features",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    IsRoadMap = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Features", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Hangboards",
                 columns: table => new
                 {
@@ -62,6 +81,7 @@ namespace MyBoardsAPI.Migrations
                     UserId = table.Column<string>(type: "text", nullable: false),
                     BoardWidth = table.Column<double>(type: "double precision", nullable: false),
                     BoardHeight = table.Column<double>(type: "double precision", nullable: false),
+                    IsDefaultBoard = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -260,6 +280,7 @@ namespace MyBoardsAPI.Migrations
                     RestTime = table.Column<int>(type: "integer", nullable: false),
                     Reps = table.Column<int>(type: "integer", nullable: false),
                     RestBeforeNextSet = table.Column<int>(type: "integer", nullable: false),
+                    Weight = table.Column<int>(type: "integer", nullable: false),
                     IndexPosition = table.Column<int>(type: "integer", nullable: false),
                     LeftGripType = table.Column<int>(type: "integer", nullable: false),
                     RightGripType = table.Column<int>(type: "integer", nullable: false),
@@ -448,6 +469,9 @@ namespace MyBoardsAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Features");
 
             migrationBuilder.DropTable(
                 name: "PerformedReps");

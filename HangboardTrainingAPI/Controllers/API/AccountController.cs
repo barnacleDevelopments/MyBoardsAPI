@@ -9,11 +9,11 @@ namespace MyBoardsAPI.Controllers.API;
 [ApiController]
 [Area("api")]
 [Route("[area]/[controller]")]
-public class ApiAccountController : Controller
+public class AccountController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public ApiAccountController(UserManager<ApplicationUser> userManager)
+    public AccountController(UserManager<ApplicationUser> userManager)
     {
         _userManager = userManager;
     } 

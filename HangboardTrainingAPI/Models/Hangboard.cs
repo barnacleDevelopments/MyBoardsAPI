@@ -12,6 +12,7 @@ namespace MyBoardsAPI.Models
         public List<Hold> Holds { get; set; } = new List<Hold>();
         [JsonIgnore]
         public List<Workout>? Workouts { get; set; } = new List<Workout>();
+        public bool IsDefaultBoard { get; set; }
 
     }
 }

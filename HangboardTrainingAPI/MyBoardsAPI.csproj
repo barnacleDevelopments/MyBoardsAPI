@@ -21,56 +21,25 @@
   <ItemGroup>
     <PackageReference Include="Azure.Storage.Blobs" Version="12.13.1" />
     <PackageReference Include="Json.Net" Version="1.0.33" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.9" />
     <PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.23.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.8" />
-	<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.9" />
+	<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Identity.Web" Version="1.25.2" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="1.25.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
     <PackageReference Include="System.Security.Claims" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="Models\" />
     <Folder Include="wwwroot\*" />
-    <Folder Include="wwwroot\images\" />
-    <Folder Include="wwwroot\js\" />
-    <Folder Include="wwwroot\lib\jquery-validation-unobtrusive\" />
-    <Folder Include="wwwroot\lib\jquery-validation\" />
-    <Folder Include="wwwroot\lib\jquery-validation\dist\" />
-    <Folder Include="wwwroot\lib\jquery\" />
-    <Folder Include="wwwroot\lib\jquery\dist\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.css" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.css.map" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.min.css" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.min.css.map" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
-    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Styles\colors.scss" />
-    <None Include="Styles\contact.scss" />
-    <None Include="Styles\forms.scss" />
-    <None Include="Styles\global.scss" />
-    <None Include="Styles\index.scss" />
-    <None Include="Styles\layout.scss" />
-    <None Include="Styles\login.scss" />
-    <None Include="Styles\privacy.scss" />
-    <None Include="Styles\site.scss" />
-  </ItemGroup>
-
 </Project>
