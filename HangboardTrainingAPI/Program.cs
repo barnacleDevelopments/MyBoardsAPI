@@ -1,14 +1,13 @@
 using System.Text;
-using HangboardTrainingAPI.Services;
+using MyBoardsAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Net.Http.Headers;
 using MyBoardsAPI;
 using MyBoardsAPI.Data;
 using MyBoardsAPI.Models.Auth;
-using MyBoardsAPI.Services;
+using MyBboardsAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +19,6 @@ builder.Services.AddEntityFrameworkNpgsql()
         opt.UseNpgsql(myBoardsConnectionString));
 
 // Adding Authentication
-// TODO: Setup separate DB context for a user database
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<MyBoardsDbContext>()
     .AddDefaultTokenProviders();
@@ -28,18 +26,11 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 // TODO: Duel Authentication Schemes (https://weblog.west-wind.com/posts/2022/Mar/29/Combining-Bearer-Token-and-Cookie-Auth-in-ASPNET)
 builder.Services.AddAuthentication(options =>
     {
-        options.DefaultScheme = "JWT_OR_COOKIE";
-        options.DefaultChallengeScheme = "JWT_OR_COOKIE";
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
     })
-    .AddCookie("Cookies", options =>
-    {
-        options.Cookie.Name = ".AspNetCore.Identity.Application";
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-        options.SlidingExpiration = true;
-        options.LoginPath = "/login";
-    })
-    .AddJwtBearer("Bearer", options =>
+    .AddJwtBearer(options =>
     {
         options.SaveToken = true;
         options.RequireHttpsMetadata = false;
@@ -54,32 +45,13 @@ builder.Services.AddAuthentication(options =>
             ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
         };
-    }).AddPolicyScheme("JWT_OR_COOKIE", "JWT_OR_COOKIE", options =>
-    {
-        // runs on each request
-        options.ForwardDefaultSelector = context =>
-        {
-            // filter by auth type
-            string authorization = context.Request.Headers[HeaderNames.Authorization];
-            if (!string.IsNullOrEmpty(authorization) && authorization.StartsWith("Bearer "))
-                return "Bearer";
-
-            // otherwise always check for cookie auth
-            return "Cookies";
-        };
     });
-;
 
 // Add Controllers
 builder.Services.AddControllers();
 
-// Configure Serverside Blazor
-builder.Services.AddServerSideBlazor();
-
 // Configure MVC Views
 builder.Services.AddControllersWithViews();
-
-builder.Services.AddRazorPages();
 
 builder.Services.AddHostedService(sp => new NpmWatchHostedService(
     sp.GetRequiredService<IWebHostEnvironment>().IsDevelopment(),
@@ -101,8 +73,6 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-    endpoints.MapRazorPages();
-    endpoints.MapBlazorHub();
 });
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

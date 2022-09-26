@@ -1,6 +1,4 @@
-﻿using HangboardTrainingAPI.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyBoardsAPI.Models;
 using MyBoardsAPI.Models.Auth;
@@ -23,7 +21,6 @@ namespace MyBoardsAPI.Data
         public DbSet<PerformedRep> PerformedReps { get; set; } = null!;
         public DbSet<PerformedSet> PerformedSets { get; set; } = null!;
         public DbSet<SetHold> SetHolds { get; set; } = null!;
-        public DbSet<Feature> Features { get; set; } = null!;
 
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -72,6 +69,12 @@ namespace MyBoardsAPI.Data
                 .WithMany(s => s.SetHolds)
                 .HasForeignKey(hs => hs.SetId)
                 .OnDelete(DeleteBehavior.ClientCascade);
+
+            modelBuilder.Entity<PerformedSet>()
+                .HasOne(s => s.Set)
+                .WithMany(s => s.PerformedSet)
+                .HasForeignKey(s => s.SetId)
+                .OnDelete(DeleteBehavior.SetNull);
         }
 
     }

@@ -28,5 +28,6 @@ namespace MyBoardsAPI.Models
         [JsonIgnore]
         public Workout? Workout { get; set; }
         public List<SetHold> SetHolds { get; set; } = new List<SetHold>();
+        public List<PerformedSet>? PerformedSet { get; set; } = new List<PerformedSet>();
     }
 }

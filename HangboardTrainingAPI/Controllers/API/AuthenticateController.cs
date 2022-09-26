@@ -183,11 +183,11 @@ namespace MyBoardsAPI.Controllers
             var confirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             confirmationToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(confirmationToken));
 
-            var callbackUrl = Url.Page(
-                "/Account/ConfirmEmail",
-                pageHandler: null,
-                values: new { area = "Identity", userId = user.Id, code = confirmationToken },
-                protocol: Request.Scheme);
+            var callbackUrl = Url.Action(
+            "ConfirmEmail",
+            "Account",
+            values: new { userId = user.Id, code = confirmationToken },
+            protocol: Request.Scheme);
 
             try
             {
