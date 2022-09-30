@@ -8,5 +8,6 @@
         public int? WorkoutId { get; set; }
         public Workout? Workout { get; set; }
         public string? UserId { get; set; }
+
     }
 }
