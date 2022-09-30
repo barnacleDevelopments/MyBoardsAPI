@@ -24,6 +24,94 @@ namespace MyBoardsAPI.Controllers
             _userManager = userManager;
         }
 
+        [HttpGet("GroupedByMonth/{year}")]
+        public async Task<IActionResult> GetSessionGroupedByMonth(int year)
+        {
+            try
+            {
+                string userId = _userManager.GetUserId(User);
+
+                if (String.IsNullOrEmpty(userId))
+                {
+                    return Unauthorized();
+                }
+                
+                var sessions = await _db.Sessions
+                    .Where(s => s.UserId == userId && s.DateCompleted.Year == year)
+                    .OrderBy(s => s.DateCompleted).ToListAsync();
+
+                var sessionsByMonth = sessions.GroupBy(s => s.DateCompleted.Month)
+                    .Select(g => new
+                    {
+                        Year = year,
+                        Month = g.Key,
+                        Sessions = g
+                    }).ToList();
+
+                return Ok(sessionsByMonth);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside the GetSessionGroupedByMonth method inside the SessionController: {ex}");
+                return StatusCode(500, "Internal Server Error");
+            }
+            
+        }
+        
+        [HttpGet("Month/{month}")]
+        public async Task<IActionResult> GetSessionsByMonth(int month)
+        {
+            try
+            {
+                string userId = _userManager.GetUserId(User);
+
+                if (String.IsNullOrEmpty(userId))
+                {
+                    return Unauthorized();
+                }
+                
+                var sessions = await _db.Sessions
+                    .Where(s => s.UserId == userId && s.DateCompleted.Month == month)
+                    .OrderBy(s => s.DateCompleted).ToListAsync();
+
+                return Ok(sessions);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside the GetSessionsByMonth method inside the SessionController: {ex}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+        
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetSession(int id)
+        {
+            try
+            {
+                string userId = _userManager.GetUserId(User);
+
+                if (String.IsNullOrEmpty(userId))
+                {
+                    return Unauthorized();
+                }
+                
+                var sessions = await _db.Sessions
+                    .Where(s => s.UserId == userId).FirstOrDefaultAsync(s => s.Id == id);
+
+                return Ok(sessions);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside the GetSession method inside the SessionController: {ex}");
+                return StatusCode(500, "Internal Server Error");
+            }
+            
+        }
+        
+
         [HttpPost]
         public async Task<IActionResult> LogSessionAsync(Session session)
         {
