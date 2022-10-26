@@ -57,7 +57,7 @@ namespace MyBboardsAPI.Services
             }
             catch (RequestFailedException ex)
             {
-                _logger.LogError($"Something went wrong inside the DeleteAsync method inside the WorkoutController: {ex}");
+                _logger.LogError($"Something went wrong inside the Create Blob Container method inside the ImageService: {ex}");
             }
 
             return null;

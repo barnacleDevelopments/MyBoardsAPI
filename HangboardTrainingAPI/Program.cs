@@ -10,6 +10,8 @@ using MyBoardsAPI.Models.Auth;
 using MyBboardsAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 // Register DB Context
 var myBoardsConnectionString = builder.Configuration.GetConnectionString("POSTGRES_MYBOARDS");
