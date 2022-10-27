@@ -17,24 +17,25 @@ namespace MyBboardsAPI.Services
 
         public async Task<string> UploadImage(IFormFile file, int HangboardId)
         {
-       
-            var UUID = Guid.NewGuid().ToString();
-
-            var blobFileName = $"{HangboardId}_{UUID}.jpg";
-
-            // I container does not exist create blob container
-            var container = await CreateBlobContainer();
-
-            if(container == null)
+            try
             {
-                return "";
+                var UUID = Guid.NewGuid().ToString();
+
+                var blobFileName = $"{HangboardId}_{UUID}.jpg";
+
+                // I container does not exist create blob container
+                var container = await CreateBlobContainer();
+
+                // Upload blob to container
+                BlobClient blobClient = container.GetBlobClient(blobFileName);
+                await blobClient.UploadAsync(file.OpenReadStream());
+                return blobClient.Uri.AbsoluteUri;
             }
-
-            // Upload blob to container
-            BlobClient blobClient = container.GetBlobClient(blobFileName);
-            await blobClient.UploadAsync(file.OpenReadStream());
-
-            return blobClient.Uri.AbsoluteUri;
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside the UploadImage method inside the ImageService: {ex}");
+                throw;
+            }
         }
 
         private async Task<BlobContainerClient?> CreateBlobContainer()
@@ -49,7 +50,7 @@ namespace MyBboardsAPI.Services
                 // check if container exists 
                 if (!await container.ExistsAsync())
                 {
-                    return await blobServiceClient.CreateBlobContainerAsync(containerName);
+                    container = await blobServiceClient.CreateBlobContainerAsync(containerName);
                 }
 
                 return container;
@@ -58,9 +59,8 @@ namespace MyBboardsAPI.Services
             catch (RequestFailedException ex)
             {
                 _logger.LogError($"Something went wrong inside the Create Blob Container method inside the ImageService: {ex}");
+                throw;
             }
-
-            return null;
         }
     }
 }
