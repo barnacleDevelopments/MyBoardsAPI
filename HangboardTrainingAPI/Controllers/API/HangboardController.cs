@@ -362,19 +362,13 @@ namespace MyBoardsAPI.Controllers
             try
             {
                 var file = Request.Form.Files.FirstOrDefault();
-
-                if (file != null)
-                {
-                    return await _imageService.UploadImage(file, hangboardId);
-                }
-
+                return await _imageService.UploadImage(file, hangboardId);
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Something went wrong inside the GetImageFromRequest method inside the HangboardController: {ex}");
+                throw;
             }
-
-            return "";
             #endregion
         }
 
