@@ -290,6 +290,7 @@ namespace MyBoardsAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Something went wrong inside the DeleteWorkoutsOfHangboard method inside the HangboardController: {ex}");
+                throw;
             }
             #endregion
         }

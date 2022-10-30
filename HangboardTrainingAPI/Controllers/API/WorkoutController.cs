@@ -274,11 +274,11 @@ namespace MyBoardsAPI.Controllers
                 // remove relationship with its sessions 
                 workout.Sessions.Clear();
 
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
 
                 _db.Workouts.Remove(workout);
 
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
 
                 return Ok(id);
             }
