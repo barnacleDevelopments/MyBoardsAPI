@@ -17,7 +17,7 @@ namespace MyBoardsAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.9")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -367,7 +367,7 @@ namespace MyBoardsAPI.Migrations
                     b.Property<int>("SessionId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("SetId")
+                    b.Property<int?>("SetId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -610,8 +610,7 @@ namespace MyBoardsAPI.Migrations
                     b.HasOne("MyBoardsAPI.Models.Set", "Set")
                         .WithMany("PerformedSet")
                         .HasForeignKey("SetId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Session");
 
