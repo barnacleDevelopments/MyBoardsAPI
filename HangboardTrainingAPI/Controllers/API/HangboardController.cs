@@ -165,18 +165,6 @@ namespace MyBoardsAPI.Controllers
                     hangboard.ImageURL = await GetImageURIFromRequest(hangboard.Id);
                 }
 
-                // delete any workouts that have been created using hangboard
-                await DeleteWorkoutsOfHangboard(hangboard.Id);
-
-                // delete all the old holds
-                await DeleteHangboardHolds(hangboard.Id);
-
-                // create all the new holds
-                foreach (var hold in hangboard.Holds)
-                {
-                    hold.Id = 0;
-                }
-
                 hangboard.UserId = userId;
 
                 _db.Hangboards.Update(hangboard);
