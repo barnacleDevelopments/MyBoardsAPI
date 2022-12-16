@@ -3,7 +3,6 @@ MyBoards API is the backened for the [MyBoards App](https://github.com/barnacleD
 
 **Technologies Used:**
 - C# ASP.NET API 
-- React Native Client
 - Postgres SQL Database
 
 
