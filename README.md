@@ -4,5 +4,6 @@ MyBoards API is the backened for the [MyBoards App](https://github.com/barnacleD
 **Technologies Used:**
 - C# ASP.NET API 
 - Postgres SQL Database
+- Azure Blob Storage
 
 
